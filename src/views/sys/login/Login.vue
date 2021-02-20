@@ -1,10 +1,10 @@
 <template>
   <div class="login">
-    <div class="login-mask" />
-    <div class="login-form-wrap">
-      <div class="login-form mx-6">
+    <div class="opacity-0 login-mask lg:opacity-100"></div>
+    <div class="justify-center login-form-wrap lg:justify-end">
+      <div class="mx-6 login-form">
         <AppLocalePicker v-if="showLocale" class="login-form__locale" />
-        <div class="login-form__content px-2 py-10">
+        <div class="px-2 py-10 login-form__content">
           <header>
             <img :src="logo" class="mr-4" />
             <h1>{{ title }}</h1>
@@ -35,7 +35,9 @@
               <a-col :span="12">
                 <a-form-item :style="{ 'text-align': 'right' }">
                   <!-- No logic, you need to deal with it yourself -->
-                  <a-button type="link" size="small">{{ t('sys.login.forgetPassword') }}</a-button>
+                  <a-button type="link" size="small">
+                    {{ t('sys.login.forgetPassword') }}
+                  </a-button>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -47,8 +49,9 @@
                 :block="true"
                 @click="login"
                 :loading="formState.loading"
-                >{{ t('sys.login.loginButton') }}</a-button
               >
+                {{ t('sys.login.loginButton') }}
+              </a-button>
             </a-form-item>
           </a-form>
         </div>
@@ -161,13 +164,10 @@
     background-size: 100% 100%;
 
     &-mask {
-      display: none;
       height: 100%;
       background: url(../../../assets/images/login/login-in.png) no-repeat;
       background-position: 30% 30%;
       background-size: 80% 80%;
-
-      .respond-to(xlarge, { display: block;});
     }
 
     &-form {
@@ -179,7 +179,6 @@
       border-width: 8px;
       border-radius: 4px;
       background-clip: padding-box;
-      .respond-to(xlarge, { margin: 0 120px 0 50px});
 
       &__main {
         margin: 30px auto 0 auto !important;
@@ -192,12 +191,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        // height: 90%;
-        justify-content: center;
         align-items: center;
-        .respond-to(xlarge, {
-        justify-content: flex-end;
-          });
       }
 
       &__content {

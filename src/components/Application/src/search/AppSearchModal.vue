@@ -14,9 +14,9 @@
                 <SearchOutlined />
               </template>
             </a-input>
-            <span :class="`${prefixCls}-cancel`" @click="handleClose">{{
-              t('common.cancelText')
-            }}</span>
+            <span :class="`${prefixCls}-cancel`" @click="handleClose">
+              {{ t('common.cancelText') }}
+            </span>
           </div>
 
           <div :class="`${prefixCls}-not-data`" v-show="getIsNotData">
@@ -38,11 +38,13 @@
               ]"
             >
               <div :class="`${prefixCls}-list__item-icon`">
-                <g-icon :icon="item.icon || 'mdi:form-select'" :size="20" />
+                <Icon :icon="item.icon || 'mdi:form-select'" :size="20" />
               </div>
-              <div :class="`${prefixCls}-list__item-text`">{{ item.name }}</div>
+              <div :class="`${prefixCls}-list__item-text`">
+                {{ item.name }}
+              </div>
               <div :class="`${prefixCls}-list__item-enter`">
-                <g-icon icon="ant-design:enter-outlined" :size="20" />
+                <Icon icon="ant-design:enter-outlined" :size="20" />
               </div>
             </li>
           </ul>
@@ -54,28 +56,30 @@
 </template>
 <script lang="ts">
   import { defineComponent, computed, unref, ref } from 'vue';
+  import { SearchOutlined } from '@ant-design/icons-vue';
+  import { Input } from 'ant-design-vue';
+  import AppSearchFooter from './AppSearchFooter.vue';
+  import Icon from '/@/components/Icon';
+
+  import clickOutside from '/@/directives/clickOutside';
 
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRefs } from '/@/hooks/core/useRefs';
   import { useMenuSearch } from './useMenuSearch';
-  import { SearchOutlined } from '@ant-design/icons-vue';
-  import AppSearchFooter from './AppSearchFooter.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useAppInject } from '/@/hooks/web/useAppInject';
-  import clickOutside from '/@/directives/clickOutside';
-  import { Input } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'AppSearchModal',
-    components: { SearchOutlined, AppSearchFooter, [Input.name]: Input },
-    emits: ['close'],
+    components: { Icon, SearchOutlined, AppSearchFooter, [Input.name]: Input },
+    directives: {
+      clickOutside,
+    },
 
     props: {
       visible: Boolean,
     },
-    directives: {
-      clickOutside,
-    },
+    emits: ['close'],
     setup(_, { emit }) {
       const scrollWrap = ref<ElRef>(null);
       const { prefixCls } = useDesign('app-search-modal');
@@ -105,6 +109,11 @@
         ];
       });
 
+      function handleClose() {
+        searchResult.value = [];
+        emit('close');
+      }
+
       return {
         t,
         prefixCls,
@@ -117,10 +126,7 @@
         setRefs,
         scrollWrap,
         handleMouseenter,
-        handleClose: () => {
-          searchResult.value = [];
-          emit('close');
-        },
+        handleClose,
       };
     },
   });

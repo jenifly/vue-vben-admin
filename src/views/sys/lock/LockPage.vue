@@ -10,14 +10,18 @@
         {{ hour }}
         <span class="meridiem" v-show="showDate">{{ meridiem }}</span>
       </div>
-      <div :class="`${prefixCls}__minute`">{{ minute }} </div>
+      <div :class="`${prefixCls}__minute`">
+        {{ minute }}
+      </div>
     </div>
     <transition name="fade-slide">
       <div :class="`${prefixCls}-entry`" v-show="!showDate">
         <div :class="`${prefixCls}-entry-content`">
           <div :class="`${prefixCls}-entry__header`">
             <img :src="headerImg" :class="`${prefixCls}-entry__header-img`" />
-            <p :class="`${prefixCls}-entry__header-name`">{{ realName }}</p>
+            <p :class="`${prefixCls}-entry__header-name`">
+              {{ realName }}
+            </p>
           </div>
           <InputPassword :placeholder="t('sys.lock.placeholder')" v-model:value="password" />
           <span :class="`${prefixCls}-entry__err-msg`" v-if="errMsgRef">
@@ -60,7 +64,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed } from 'vue';
-  import { Alert, Input } from 'ant-design-vue';
+  import { Input } from 'ant-design-vue';
 
   import { userStore } from '/@/store/modules/user';
   import { lockStore } from '/@/store/modules/lock';
@@ -74,7 +78,7 @@
 
   export default defineComponent({
     name: 'LockPage',
-    components: { Alert, LockOutlined, InputPassword: Input.Password },
+    components: { LockOutlined, InputPassword: Input.Password },
 
     setup() {
       const passwordRef = ref('');
@@ -84,7 +88,7 @@
 
       const { prefixCls } = useDesign('lock-page');
 
-      const { start, stop, ...state } = useNow(true);
+      const { ...state } = useNow(true);
 
       const { t } = useI18n();
 
@@ -111,7 +115,7 @@
       }
 
       function goLogin() {
-        userStore.loginOut(true);
+        userStore.logout(true);
         lockStore.resetLockInfo();
       }
 
@@ -199,15 +203,12 @@
       display: flex;
       width: 40%;
       height: 74%;
-      // font-size: 50em;
       font-weight: 700;
       color: #bababa;
       background: #141313;
       border-radius: 30px;
       justify-content: center;
       align-items: center;
-      // .respond-to(large-only, { font-size: 25em;});
-      // .respond-to(large-only, { font-size: 30em;});
       @media (min-width: @screen-xxxl-min) {
         font-size: 46em;
       }
@@ -286,6 +287,7 @@
 
         &-img {
           width: 70px;
+          margin: 0 auto;
           border-radius: 50%;
         }
 

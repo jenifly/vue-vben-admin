@@ -20,7 +20,7 @@
       @advanced-change="redoHeight"
     >
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
-        <slot :name="item" v-bind="data" />
+        <slot :name="item" v-bind="data"></slot>
       </template>
     </BasicForm>
 
@@ -32,7 +32,7 @@
       @change="handleTableChange"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)">
-        <slot :name="item" v-bind="data" />
+        <slot :name="item" v-bind="data"></slot>
       </template>
       <template #[`header-${column.dataIndex}`] v-for="column in columns" :key="column.dataIndex">
         <HeaderCell :column="column" />
@@ -69,12 +69,12 @@
 
   import './style/index.less';
   export default defineComponent({
-    props: basicProps,
     components: {
       Table,
       BasicForm,
       HeaderCell: createAsyncComponent(() => import('./components/HeaderCell.vue')),
     },
+    props: basicProps,
     emits: [
       'fetch-success',
       'fetch-error',
@@ -88,6 +88,7 @@
       'edit-end',
       'edit-cancel',
       'edit-row-end',
+      'edit-change',
     ],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
@@ -205,6 +206,7 @@
         if (slots.expandedRowRender) {
           propsData = omit(propsData, 'scroll');
         }
+
         return propsData;
       });
 
