@@ -1,9 +1,39 @@
 ## Wip
 
+### ✨ Refactor
+
+- 重构多语言模块,支持懒加载及远程加载
+
+### ✨ Features
+
+- axios 支持 form-data 格式请求
+
+### ⚡ Performance Improvements
+
+- 登录界面动画优化
+- 修复 github 仓库体积过大问题.
+- 默认隐藏表格全屏按钮
+- `crypto-es`改为`crypto-js`，减小打包体积
+- `types`目录移动到根目录,兼容其他目录全局类型
+
+### 🐛 Bug Fixes
+
+- 修复验证码组件警告问题
+- 修复表格不能正确的获取选中行
+- 修复全屏状态下 modal 高度计算错误
+- 修复部分表格样式问题
+
+## 2.0.1 (2021-02-21)
+
+### ✨ Refactor
+
+- 登录页重构,新增注册页面/重置密码页面/手机登录/二维码登录
+
 ### ✨ Features
 
 - 新增 `settingButtonPosition`配置项,用于配置`设置`按钮位置
 - `modal`可以通过双击头部切换全屏
+- 新增`CountDownInput`组件
 
 ### ⚡ Performance Improvements
 
